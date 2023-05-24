@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 import requests
 import os
-from InteractiveButtons import ButtonView
+from helperclasses.InteractiveButtons import ButtonView
 
 class Anilist(commands.Cog):
     def __init__(self, client):

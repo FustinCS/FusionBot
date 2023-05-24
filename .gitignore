@@ -1,2 +1,3 @@
 .env
 tv_shows.db
+__pycache__

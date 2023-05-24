@@ -3,8 +3,8 @@ from discord.ext import commands
 from discord import app_commands
 import requests
 import os
-from database import Database
-from InteractiveButtons import ButtonView
+from helperclasses.database import Database
+from helperclasses.InteractiveButtons import ButtonView
 from datetime import datetime
 
 class TVShows(commands.Cog):
