@@ -15,8 +15,11 @@ class Anilist(commands.Cog):
 
     @app_commands.command(name="profile", description="Displays anime profile.")
     async def profile(self, interaction: discord.Interaction, username: str):
+
+        # fetching data using GraphQL for anilist
         url = 'https://graphql.anilist.co'
 
+        # creating query to only retrieve the information I want
         query = '''
             query ($username: String) {
                 MediaListCollection (userName: $username, type: ANIME, status: COMPLETED, sort: SCORE_DESC) {
@@ -40,16 +43,20 @@ class Anilist(commands.Cog):
             }
         '''
 
+        # creating username variable to be able to specify someone's username in the query
         variables = {
             'username': username
         }
 
+        # gathering all the information from my query and storing it in variables via requests library
         response = requests.post(url, json={'query': query, 'variables': variables})
         json_data = response.json()
 
         user_name = json_data['data']['MediaListCollection']['user']['name']
         all_anime_list = json_data['data']['MediaListCollection']['lists'][0]['entries']
 
+        # need to create a list of titles, scores, and format to be able to create multiple embeds
+        # so you can go from page to page with each page only displaying 10 animes
         anime_titles = []
         anime_scores = []
         anime_format = []
@@ -63,6 +70,8 @@ class Anilist(commands.Cog):
             anime_scores.append(titles['score'])
             anime_format.append(titles['media']['format'])
 
+        # creating the embeds
+        # using [i:i+10] in order to store 10 entries per page
         embeds = []
         for i in range(0, len(anime_titles), 10):
             embed = discord.Embed(title=user_name, color=discord.Color.random())

@@ -15,11 +15,11 @@ class Weather(commands.Cog):
 
     @app_commands.command(name="weather", description="Tells Weather of Specified City")
     async def weather(self, interaction: discord.Interaction, city: str):
-        # To be able to fetch correct URL (ex: Daly City = Daly+City)
+        # To be able to fetch correct URL (ex: San Francisco = San+Francisco)
         city_string = city.replace(" ", "+")
         url = f"https://www.google.com/search?q=weather+{city_string}"
 
-        # To be able to Scrape from Google.com
+        # To be able to fetch data from Google.com
         USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
         LANGUAGE = "en-US,en;q=0.5"
 
@@ -31,7 +31,7 @@ class Weather(commands.Cog):
         result = session.get(url)
         doc = BeautifulSoup(result.text, "html.parser")
 
-        # Storing all my scraped information into variables
+        # Storing all my information into variables
         city_name = doc.find("span", attrs={"class": "BBwThe"}).text
         fahrenheit = doc.find("span", attrs={"id": "wob_tm"}).text
         celsius = doc.find("span", attrs={"id": "wob_ttm"}).text

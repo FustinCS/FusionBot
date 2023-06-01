@@ -1,5 +1,8 @@
 import sqlite3
 
+
+# some basic commands to help accessing my SQLite database easier and
+# more seamless
 class Database:
     def __init__(self, name):
         self._conn = sqlite3.connect(name)
