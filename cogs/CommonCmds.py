@@ -24,6 +24,10 @@ class CommonCmds(commands.Cog):
         roll_message = str(random.randint(1, 6))
         await interaction.response.send_message(f"You rolled: `{roll_message}`")
 
+    @app_commands.command(name="branch", description="Testing Github Branches.")
+    async def branch(self, interaction: discord.Interaction):
+        await interaction.response.send_message("Branch Worked.")
+
 async def setup(client):
     await client.add_cog(CommonCmds(client), guilds=[discord.Object(id=os.getenv("GUILD_ID"))])
     
