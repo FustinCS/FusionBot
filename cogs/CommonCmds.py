@@ -26,3 +26,4 @@ class CommonCmds(commands.Cog):
 
 async def setup(client):
     await client.add_cog(CommonCmds(client), guilds=[discord.Object(id=os.getenv("GUILD_ID"))])
+    
